@@ -25,5 +25,4 @@ ID : [a-zA-Z]+;
 INT : [0-9];
 LPAREN : '(';
 RPAREN : ')';
-NEWLINE:'\r'? '\n';
-WS: [ \t]+ -> skip;
+NEWLINE:'\r'?'\n';

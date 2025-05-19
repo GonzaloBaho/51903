@@ -1,10 +1,10 @@
-// Generated from c://Users//Mariana//OneDrive - docentes.frm.utn.edu.ar//SSL//2025//ANTLR4//antlr-calculator-project//Calculator.g4 by ANTLR 4.13.2
+// Generated from c:/Users/paraj/ssl-antlr-calculator/Calculator.g4 by ANTLR 4.13.2
 // jshint ignore: start
 import antlr4 from 'antlr4';
 import CalculatorListener from './CalculatorListener.js';
 import CalculatorVisitor from './CalculatorVisitor.js';
 
-const serializedATN = [4,1,11,45,2,0,7,0,2,1,7,1,2,2,7,2,1,0,4,0,8,8,0,11,
+const serializedATN = [4,1,10,45,2,0,7,0,2,1,7,1,2,2,7,2,1,0,4,0,8,8,0,11,
 0,12,0,9,1,1,1,1,3,1,14,8,1,1,1,1,1,1,1,1,1,3,1,20,8,1,1,1,3,1,23,8,1,1,
 2,1,2,1,2,1,2,1,2,1,2,1,2,3,2,32,8,2,1,2,1,2,1,2,1,2,1,2,1,2,5,2,40,8,2,
 10,2,12,2,43,9,2,1,2,0,1,4,3,0,2,4,0,2,1,0,1,2,1,0,3,4,50,0,7,1,0,0,0,2,
@@ -32,7 +32,7 @@ export default class CalculatorParser extends antlr4.Parser {
     static literalNames = [ null, "'*'", "'/'", "'+'", "'-'", "'='", null, 
                             null, "'('", "')'" ];
     static symbolicNames = [ null, "MUL", "DIV", "ADD", "SUB", "EQ", "ID", 
-                             "INT", "LPAREN", "RPAREN", "NEWLINE", "WS" ];
+                             "INT", "LPAREN", "RPAREN", "NEWLINE" ];
     static ruleNames = [ "prog", "stat", "expr" ];
 
     constructor(input) {
@@ -299,7 +299,6 @@ CalculatorParser.INT = 7;
 CalculatorParser.LPAREN = 8;
 CalculatorParser.RPAREN = 9;
 CalculatorParser.NEWLINE = 10;
-CalculatorParser.WS = 11;
 
 CalculatorParser.RULE_prog = 0;
 CalculatorParser.RULE_stat = 1;
