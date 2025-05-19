@@ -1,0 +1,7 @@
+nombre:archivo.txt;
+tipo:texto;
+creado:Usuario123;
+modificado:2025-05-15 10:00;
+autor:Usuario123;
+descripcion:Este es un archivo de prueba para demostrar el formato de metadatos.;
+etiquetas:prueba,ejemplo,metadata;

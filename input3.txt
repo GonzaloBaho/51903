@@ -1,0 +1,5 @@
+nombre: documento.pdf;
+tipoArchivo: pdf;
+tamaño: 102400;
+fecha_creacion: 2025-05-01 10:00;
+autor: IA Modelo;
