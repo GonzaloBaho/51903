@@ -6,7 +6,7 @@
     "type": "antlr-debug",
     "request": "launch",
     "input": "input.txt",
-    "grammar": "Calculator.g4",
+    "grammar": "dsl.g4",
     "printParseTree": true,
     "visualParseTree": true
     }

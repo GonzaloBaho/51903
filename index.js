@@ -1,61 +1,74 @@
-import CalculatorLexer from "./generated/CalculatorLexer.js";
-import CalculatorParser from "./generated/CalculatorParser.js";
-import { CustomCalculatorListener } from "./CustomCalculatorListener.js";
-import { CustomCalculatorVisitor } from "./CustomCalculatorVisitor.js";
-import antlr4, { CharStreams, CommonTokenStream, ParseTreeWalker } from "antlr4";
-import readline from 'readline';
-import fs from 'fs';
+import dslLexer from "./generated/dslLexer.js";
+import dslParser from "./generated/dslParser.js";
+import CustomDSLVisitor from "./CustomDSLVisitor.js";
+import { CharStreams, CommonTokenStream } from "antlr4";
+import fs from "fs";
+import readline from "readline";
 
 async function main() {
-    let input;
+  let input;
 
-    // Intento leer la entrada desde el archivo input - en forma sincrona.
-    try {
-        input = fs.readFileSync('input.txt', 'utf8');
-    } catch (err) {
-        // Si no es posible leer el archivo, solicitar la entrada del usuario por teclado
-        input = await leerCadena(); // Simula lectura síncrona
-        console.log(input);
-    }
+  try {
+    input = fs.readFileSync("input.txt", "utf8");
+  } catch (err) {
+    input = await leerCadena(); // Simula lectura síncrona
+    console.log(input);
+  }
 
-    // Proceso la entrada con el analizador e imprimo el arbol de analisis en formato texto
-    let inputStream = CharStreams.fromString(input);
-    let lexer = new CalculatorLexer(inputStream);
-    let tokenStream = new CommonTokenStream(lexer);
-    let parser = new CalculatorParser(tokenStream);
-    let tree = parser.prog();
-    
-    // Verifico si se produjeron errores
-    if (parser.syntaxErrorsCount > 0) {
-        console.error("\nSe encontraron errores de sintaxis en la entrada.");
-    } 
-    else {
-        console.log("\nEntrada válida.");
-        const cadena_tree = tree.toStringTree(parser.ruleNames);
-        console.log(`Árbol de derivación: ${cadena_tree}`);
+  // Crear el lexer y el analizador para obtener el lexer
+  const chars = CharStreams.fromString(input);
+  const lexer = new dslLexer(chars);
 
-        // Utilizo un listener y un walker para recorrer el arbol e indicar cada vez que reconoce una sentencia (stat)
-        //const listener = new CustomCalculatorListener();
-        // ParseTreeWalker.DEFAULT.walk(listener, tree);
+  // Verificar si el lexer está generando tokens
+  const tokens = lexer.getAllTokens();
+  if (tokens.length === 0) {
+    console.error("No se generaron tokens. Verifica la entrada y la gramática.");
+    return;
+  }
 
-        // Utilizo un visitor para visitar los nodos que me interesan de mi arbol
-        const visitor = new CustomCalculatorVisitor();
-        visitor.visit(tree);   
-    }
+  // Mostrar la tabla de tokens y lexemas
+  console.log("Tabla de Tokens y Lexemas:");
+  for (const token of tokens) {
+    const tokenType = dslLexer.symbolicNames[token.type] || `UNKNOWN (${token.type})`;
+    const lexema = token.text;
+    console.log(`| ${lexema.padEnd(14)} | ${tokenType.padEnd(30)} |`);
+  }
+
+  console.log("----------");
+
+  // Volver a procesar la entrada para que el parser funcione correctamente
+  const chars2 = CharStreams.fromString(input);
+  const lexer2 = new dslLexer(chars2);
+  const tokenStream = new CommonTokenStream(lexer2);
+  const parser = new dslParser(tokenStream);
+  const tree = parser.regla();
+
+  // Verificar si se produjeron errores sintácticos
+  if (parser._syntaxErrors > 0) {
+    console.error("¡Se encontraron errores de sintaxis en la entrada!");
+  } else {
+    console.log("¡Entrada válida!");
+    console.log("Árbol de derivación:");
+    console.log(tree.toStringTree(parser.ruleNames));
+
+    // Visitor
+    const visitor = new CustomDSLVisitor();
+    visitor.visit(tree);
+  }
 }
 
 function leerCadena() {
-    const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout
-    });
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
 
-    return new Promise(resolve => {
-        rl.question("Ingrese una cadena: ", (answer) => {
-            rl.close();
-            resolve(answer);
-        });
+  return new Promise((resolve) => {
+    rl.question("Ingresa una cadena: ", (answer) => {
+      rl.close();
+      resolve(answer);
     });
+  });
 }
 
 // Ejecuta la función principal

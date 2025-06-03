@@ -1,0 +1,7 @@
+regla regla6 {
+  cuando intentosFallidos > 3
+  agregarUsuarioAListaNegra
+}
+
+
+//copiar y pegar en input.txt 

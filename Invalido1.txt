@@ -1,0 +1,7 @@
+regla regla1 {
+  cuando accesoFueraHorario
+  entonces agregarIPaListaNegra
+}
+
+
+//copiar y pegar en input.txt 

@@ -1,0 +1,12 @@
+regla regla1 {
+  cuando accesoARecursosSensibles y noEsAdministrador
+  entonces agregarIPAListaNegra
+}
+
+regla regla2 {
+  cuando intentoAccesoFueraHorario
+  entonces activarMonitoreoDetallado
+}
+
+
+//copiar y pegar en input.txt 
