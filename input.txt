@@ -8,4 +8,3 @@ regla regla2 {
   entonces activarMonitoreoDetallado
 }
 
-//para probar los otros ejemplos como indica en el README, tiene que copiar y pegar cada ejemplo tamto como valido como invalido en este input.txt.
